@@ -15,11 +15,21 @@ func InitServer() {
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
 
-	v1 := r.Group("/api/v1")
+	api := r.Group("/api")
 
+	v1 := api.Group("/v1")
 	{
 		health := v1.Group("/health")
 		routers.Health(health)
+
+		testRouter := v1.Group("/test")
+		routers.TestRouter(testRouter)
+	}
+
+	v2 := api.Group("/v2")
+	{
+		testRouter := v2.Group("/test")
+		routers.TestRouter(testRouter)
 	}
 
 	// v1.GET("/health", func(ctx *gin.Context) {
