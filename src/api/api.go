@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
+	"github.com/mostafaomrani/golang-clean-web-api/api/middlewares"
 	"github.com/mostafaomrani/golang-clean-web-api/api/validations"
 	"github.com/mostafaomrani/golang-clean-web-api/config"
 
@@ -16,7 +17,7 @@ func InitServer() {
 	cfg := config.GetConfig()
 
 	r := gin.New()
-	r.Use(gin.Logger(), gin.Recovery())
+	r.Use(gin.Logger(), gin.Recovery(), middlewares.TestMiddleware(), middlewares.LimittByRequest())
 
 	// Register validator
 	val, ok := binding.Validator.Engine().(*validator.Validate)
