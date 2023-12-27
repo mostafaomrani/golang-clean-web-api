@@ -3,6 +3,9 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
+	"github.com/mostafaomrani/golang-clean-web-api/api/validations"
 	"github.com/mostafaomrani/golang-clean-web-api/config"
 
 	"github.com/mostafaomrani/golang-clean-web-api/api/routers"
@@ -14,6 +17,15 @@ func InitServer() {
 
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
+
+	// Register validator
+	val, ok := binding.Validator.Engine().(*validator.Validate)
+	if ok {
+		err := val.RegisterValidation("mobile", validations.IranianMobileNumberValidatopr, true)
+		if err != nil {
+			return
+		}
+	}
 
 	api := r.Group("/api")
 

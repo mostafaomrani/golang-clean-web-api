@@ -87,10 +87,17 @@ func (h *TestHandler) UriBinder(c *gin.Context) {
 
 func (h *TestHandler) BodyBinder(c *gin.Context) {
 	body := struct {
-		UserId  string
-		Browser string
+		UserId  string `json:"userId" binding:"required,alpha,min=4,max=10"`
+		Browser string `json:"Browser" binding:"required,alpha,min=4,max=10"`
+		Mobile  string `json:"Mobile" binding:"required,mobile"`
 	}{}
-	c.BindJSON(&body)
+	err := c.BindJSON(&body)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"validationError": err.Error(),
+		})
+		return
+	}
 	c.Header("Content-Type", "application/json")
 	c.JSON(http.StatusOK, gin.H{
 		"result": "BodyBinder",
