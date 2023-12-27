@@ -14,4 +14,10 @@ func TestRouter(r *gin.RouterGroup) {
 	r.GET("/user/get-user-by-username/:username", h.UserByUsername)
 	r.GET("/user/:id/accounts", h.Accounts)
 	r.POST("/add-user/", h.AddUser)
+	r.GET("/get-header/", h.Headerbinder2)
+	r.GET("/QueryBinder1/", h.QueryBinder1)
+	r.GET("/UriBinder/:uri", h.UriBinder)
+	r.GET("/body", h.BodyBinder)
+	r.GET("/form", h.FormBinder)
+	r.GET("/formfile", h.FormFile)
 }
