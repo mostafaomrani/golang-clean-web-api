@@ -12,11 +12,14 @@ import (
 	"github.com/mostafaomrani/golang-clean-web-api/api/routers"
 )
 
-func InitServer() {
+func InitServer(cfg *config.Config) {
 
-	cfg := config.GetConfig()
+	// TOP OR BUTTON
+	//cfg := config.GetConfig()
 
 	r := gin.New()
+
+	r.Use(middlewares.Cors(cfg))
 	r.Use(gin.Logger(), gin.Recovery(), middlewares.TestMiddleware(), middlewares.LimittByRequest())
 
 	// Register validator
