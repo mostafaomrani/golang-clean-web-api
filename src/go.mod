@@ -1,6 +1,6 @@
 module github.com/mostafaomrani/golang-clean-web-api
 
-go 1.21.3
+go 1.21
 
 require (
 	github.com/gin-gonic/gin v1.9.1
