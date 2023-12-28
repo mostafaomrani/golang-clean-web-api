@@ -12,10 +12,9 @@ import (
 	"github.com/mostafaomrani/golang-clean-web-api/api/routers"
 )
 
-func InitServer(cfg *config.Config) {
+func InitServer() {
 
-	// TOP OR BUTTON
-	//cfg := config.GetConfig()
+	cfg := config.GetConfig()
 
 	r := gin.New()
 
